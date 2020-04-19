@@ -1,0 +1,59 @@
+version: '2'
+
+services:
+
+  search-api:
+    image: nestjs/cli
+    working_dir: /app
+    volumes:
+      - ./:/app
+    expose:
+      - 4000
+    ports:
+      - 4000:4000
+    environment:
+      TYPEORM_HOST: search-db
+      TYPEORM_USERNAME: root
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      AWS_REGION: ap-northeast-1
+      TZ: Asia/Tokyo
+    command: npm run start
+    depends_on:
+      - mysql
+  
+  mysql:
+    container_name: search-db
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: search
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      BIND-ADDRESS: 0.0.0.0
+    expose:
+      - 3306
+    volumes:
+      - mysql-data:/var/lib/mysql:cached
+      - ./mysql/conf:/etc/mysql/conf.d:cached
+    command: --innodb-use-native-aio=0
+  
+  elasticsearch:
+    build: elasticsearch
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    expose:
+      - 9200
+    environment:
+      - discovery.type=single-node
+  
+  kibana:
+    build: kibana
+    ports:
+      - 5601:5601
+
+volumes:
+  elasticsearch-data:
+    driver: local
+  mysql-data:
+    driver: local

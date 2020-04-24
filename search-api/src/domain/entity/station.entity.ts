@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index, Double } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Station {
@@ -21,10 +21,10 @@ export class Station {
   name: string;
 
   @Column()
-  latitude: Double;
+  latitude: number;
 
   @Column()
-  longitude: Double;
+  longitude: number;
 
   @Column()
   businessHour: Date;

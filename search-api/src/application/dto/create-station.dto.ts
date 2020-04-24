@@ -7,11 +7,11 @@ export class CreateStationDto {
   readonly name: string;
 
   @IsNotEmpty()
-  @IsNumber
+  @IsNumber()
   readonly latitude: number;
 
   @IsNotEmpty()
-  @IsNumber
+  @IsNumber()
   readonly longitude: number;
 
   @IsNotEmpty()

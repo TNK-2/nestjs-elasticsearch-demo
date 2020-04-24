@@ -1,13 +1,11 @@
-import { Double } from 'typeorm';
-
 export interface StationInterface {
   id: number;
 
   name: string;
 
-  latitude: Double;
+  latitude: number;
 
-  longitude: Double;
+  longitude: number;
 
   businessHour: Date;
 }

@@ -4,6 +4,7 @@ import { AppController } from '../controller/app.controller';
 import { AppService } from '../domain/service/app.service';
 import { StationModule } from './station.module';
 import { Connection } from 'typeorm';
+import { ElasticsearchModule } from '@nestjs/elasticsearch';
 
 @Module({
   imports: [
@@ -15,9 +16,12 @@ import { Connection } from 'typeorm';
       password: process.env.TYPEORM_PASSWORD,
       port: 3306,
       database: 'search',
-      entities: [],
+      entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    ElasticsearchModule.register({
+      node: process.env.SEARCH_HOST,
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -55,7 +55,7 @@ curl -XPOST "http://localhost:9200/search/stations" \
 
 検索
 ```
-
+http://localhost:3000/search/stations/
 ```
 
 ## コマンドメモ (elastic search)

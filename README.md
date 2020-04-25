@@ -1,11 +1,15 @@
-# elasticsearch-kibana
+# nestjs-elasticsearch-demo
 
-以下のコマンドでelasticsearchとkibanaが立ち上がる
+以下のコマンドでnestjs/mysql/elasticsearch/kibanaが立ち上がる
+
 ```
 docker-compose up -d
 ```
 
 立ち上がったら 、、 
+
+## アプリへのアクセス
+http://localhost:3000/
 
 ## elastic search へのアクセス
 http://localhost:9200/   
@@ -21,7 +25,40 @@ https://dev.classmethod.jp/articles/elasticsearch-getting-started-07/
 
 https://dev.classmethod.jp/articles/elasticsearch-getting-started-08/
 
-## コマンドメモ
+## コマンドメモ (app)
+
+DBへのリソース作成
+```
+curl -XPOST "http://localhost:3000/stations" \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "test1",
+  "latitude": 35.681236,
+  "longitude": 139.767125,
+  "businessHour": "2020:04:02"
+}'
+```
+
+elastic searchへのリソース作成
+```
+curl -XPOST "http://localhost:9200/search/stations" \
+-H "Content-Type: application/json" \
+-d '{
+  "query": {
+    "name": "test3",
+    "latitude": 35.681236,
+    "longitude": 139.767125,
+    "businessHour": "2020:04:02"
+  }
+}'
+```
+
+検索
+```
+
+```
+
+## コマンドメモ (elastic search)
 
 リソース作成・変更
 ```
@@ -61,7 +98,7 @@ curl -XPOST "http://localhost:9200/test/recipes/2" \
 curl -XDELETE "http://localhost:9200/customer/external/2"
 ```
 
-## バッチプロセッシング
+## バッチプロセッシング (elastic search)
 
 ```
 curl -XPOST "http://localhost:9200/customer/external/_bulk" \
@@ -86,7 +123,7 @@ curl -XPOST "http://localhost:9200/customer/external/_bulk" \
 '
 ```
 
-## 検索 
+## 検索 (elastic search)
 
 データ挿入
 

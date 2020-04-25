@@ -2,12 +2,13 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from '../controller/app.controller';
 import { AppService } from '../domain/service/app.service';
+import { SearchModule } from './search.module'
 import { StationModule } from './station.module';
 import { Connection } from 'typeorm';
-import { ElasticsearchModule } from '@nestjs/elasticsearch';
 
 @Module({
   imports: [
+    SearchModule,
     StationModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -18,9 +19,6 @@ import { ElasticsearchModule } from '@nestjs/elasticsearch';
       database: 'search',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
-    }),
-    ElasticsearchModule.register({
-      node: process.env.SEARCH_HOST,
     })
   ],
   controllers: [AppController],
